@@ -90,7 +90,7 @@ expand.grid(elytraLength=seq(7.7,10.3,0.1)) %>%
   pivot_longer(c(-elytraLength),names_to = 'size',values_to='prob') %>%
   ggplot(aes(x=elytraLength,y=prob,col=size))+geom_line()
 
-expand.grid(elytraLength=seq(7.7,10.3,0.1)) %>%
+expand.grid(elytraLength=seq(7.6,10.3,0.1)) %>%
   cbind(predict(aeGAM1,newdata=.,type='response',se=TRUE)) %>%
   setNames(c('elytraLength','SS','SM','LM','LL',
              'SS_se','SM_se','LM_se','LL_se')) %>%
@@ -102,6 +102,7 @@ expand.grid(elytraLength=seq(7.7,10.3,0.1)) %>%
   ggplot(aes(x=elytraLength))+
   geom_ribbon(aes(ymax=upr,ymin=lwr,fill=size),alpha=0.3)+
   geom_line(aes(y=Mean,col=size))+
+  geom_rug(data=aeDat, aes(x=elytraLength), alpha=0.3)+
   scale_colour_brewer(aesthetics = c('fill','colour'),palette='Dark2')
 
 #aeGAM2
@@ -111,7 +112,7 @@ expand.grid(elytraLength=seq(7.7,10.3,0.1),difDeg='45') %>%
   pivot_longer(c(-elytraLength,-difDeg),names_to = 'size',values_to='prob') %>%
   ggplot(aes(x=elytraLength,y=prob,col=size))+geom_line()
 
-expand.grid(elytraLength=seq(7.7,10.3,0.1),difDeg='45') %>%
+expand.grid(elytraLength=seq(7.6,10.3,0.1),difDeg='45') %>%
   cbind(predict(aeGAM2,newdata=.,type='response',se=TRUE)) %>%
   setNames(c('elytraLength','difDeg','SS','SM','LM','LL',
              'SS_se','SM_se','LM_se','LL_se')) %>%
@@ -123,4 +124,5 @@ expand.grid(elytraLength=seq(7.7,10.3,0.1),difDeg='45') %>%
   ggplot(aes(x=elytraLength))+
   geom_ribbon(aes(ymax=upr,ymin=lwr,fill=size),alpha=0.3)+
   geom_line(aes(y=Mean,col=size))+
+  geom_rug(data=aeDat, aes(x=elytraLength), alpha=0.3)+
   scale_colour_brewer(aesthetics = c('fill','colour'),palette='Dark2')
