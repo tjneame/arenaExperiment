@@ -102,9 +102,14 @@ expand.grid(elytraLength=seq(7.6,10.3,0.1)) %>%
   ggplot(aes(x=elytraLength))+
   geom_ribbon(aes(ymax=upr,ymin=lwr,fill=size),alpha=0.3)+
   geom_line(aes(y=Mean,col=size))+
+  xlab("Elytra Length (mm)")+
+  ylab("Mean Predation Probability")+
   geom_rug(data=aeDat, aes(x=elytraLength), alpha=0.3)+
-  scale_colour_brewer(aesthetics = c('fill','colour'),palette='Dark2')
-
+  scale_colour_brewer(aesthetics = c('fill','colour'),palette='Dark2', 
+                      labels=c("Largest", "Large", "Small", "Smallest"),
+                      name='Size of Prey')+
+  theme_bw()
+ggsave('./figures/AEResults.png', width=5, height=3)
 #aeGAM2
 expand.grid(elytraLength=seq(7.7,10.3,0.1),difDeg='45') %>%
   bind_cols(.,predict(aeGAM2,newdata=.,type='response')) %>%
