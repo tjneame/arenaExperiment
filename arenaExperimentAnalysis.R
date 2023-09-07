@@ -100,16 +100,16 @@ expand.grid(elytraLength=seq(7.6,10.3,0.1)) %>%
   pivot_wider(names_from=stat,values_from=prob) %>%
   mutate(upr=Mean+SE*1.96,lwr=Mean-SE*1.96) %>%
   ggplot(aes(x=elytraLength))+
-  geom_ribbon(aes(ymax=upr,ymin=lwr,fill=size),alpha=0.3)+
-  geom_line(aes(y=Mean,col=size))+
+  geom_ribbon(aes(ymax=upr,ymin=lwr,fill=size),alpha=0.2)+
+  geom_line(aes(y=Mean,col=size), linewidth=1.25, alpha = 0.8)+
   xlab("Elytra Length (mm)")+
   ylab("Mean Predation Probability")+
   geom_rug(data=aeDat, aes(x=elytraLength), alpha=0.3)+
-  scale_colour_brewer(aesthetics = c('fill','colour'),palette='Dark2', 
+  scale_colour_viridis_d(aesthetics = c('fill','colour'), option = "D", begin = 0.25, end = 0.85, 
                       labels=c("Largest", "Large", "Small", "Smallest"),
                       name='Size of Prey')+
   theme_bw()
-ggsave('./figures/AEResults.png', width=5, height=3)
+ggsave('./figures/AEResults.png', width=10, height=5)
 #aeGAM2
 expand.grid(elytraLength=seq(7.7,10.3,0.1),difDeg='45') %>%
   bind_cols(.,predict(aeGAM2,newdata=.,type='response')) %>%
