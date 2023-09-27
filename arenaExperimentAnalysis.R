@@ -66,7 +66,7 @@ aeGAM4<-gam(aeForm4,
             method = 'REML')
 summary(aeGAM4)
 
-aeForm5<-as.formula(catSize~s(elytraLength)+difDeg)
+aeForm5<-as.formula(catSize~elytraLength+difDeg)
 aeGAM5<-gam(aeForm5,
             family = ocat(R=4),
             data = aeDat,
